@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniTool Kit - Free Online Browser Tools</title>
+  <meta name="description" content="Access free, powerful, secure client-side tools like JPG to PDF, Image Editor, Compressor, Scientific Calculator, EMI, GST, and Unit Converter.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- External Libraries -->
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Chart.js for Loan EMI visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  
+  <!-- App Container -->
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i data-lucide="layers" class="logo-icon"></i>
+          <span>OmniTool Kit</span>
+        </div>
+        <button class="mobile-close-btn" id="mobileCloseBtn">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li>
+            <a href="#dashboard" class="nav-item active" data-view="dashboard">
+              <i data-lucide="layout-grid"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-group-title">Image Tools</li>
+          <li>
+            <a href="#jpg-to-pdf" class="nav-item" data-view="jpg-to-pdf">
+              <i data-lucide="file-text"></i>
+              <span>JPG to PDF</span>
+            </a>
+          </li>
+          <li>
+            <a href="#image-editor" class="nav-item" data-view="image-editor">
+              <i data-lucide="image"></i>
+              <span>Image Editor</span>
+            </a>
+          </li>
+          <li>
+            <a href="#image-compressor" class="nav-item" data-view="image-compressor">
+              <i data-lucide="maximize-2"></i>
+              <span>Compress & Convert</span>
+            </a>
+          </li>
+          <li class="nav-group-title">Calculators</li>
+          <li>
+            <a href="#scientific-calculator" class="nav-item" data-view="scientific-calculator">
+              <i data-lucide="calculator"></i>
+              <span>Scientific Calc</span>
+            </a>
+          </li>
+          <li>
+            <a href="#percentage-calculator" class="nav-item" data-view="percentage-calculator">
+              <i data-lucide="percent"></i>
+              <span>Percentage Calc</span>
+            </a>
+          </li>
+          <li>
+            <a href="#emi-calculator" class="nav-item" data-view="emi-calculator">
+              <i data-lucide="landmark"></i>
+              <span>EMI Calculator</span>
+            </a>
+          </li>
+          <li>
+            <a href="#gst-calculator" class="nav-item" data-view="gst-calculator">
+              <i data-lucide="coins"></i>
+              <span>GST Calculator</span>
+            </a>
+          </li>
+          <li class="nav-group-title">Converters</li>
+          <li>
+            <a href="#unit-converter" class="nav-item" data-view="unit-converter">
+              <i data-lucide="arrow-left-right"></i>
+              <span>Unit Converter</span>
+            </a>
+          </li>
+          <li class="nav-group-title">Microprocessors</li>
+          <li>
+            <a href="#8085-simulator" class="nav-item" data-view="8085-simulator">
+              <i data-lucide="cpu"></i>
+              <span>8085 Processor Lab</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <div class="privacy-tag">
+          <i data-lucide="shield-check"></i>
+          <span>100% Client-Side & Secure</span>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <header class="header">
+        <div class="header-left">
+          <button class="mobile-toggle-btn" id="mobileToggleBtn">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="search-container" id="globalSearchContainer">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="globalSearch" placeholder="Search for tools... (e.g. PDF, EMI)">
+          </div>
+        </div>
+        
+        <div class="header-right">
+          <button class="theme-toggle" id="themeToggleBtn" title="Toggle Theme">
+            <i data-lucide="sun" class="sun-icon"></i>
+            <i data-lucide="moon" class="moon-icon"></i>
+          </button>
+        </div>
+      </header>
+      
+      <!-- Scrollable Main Viewport -->
+      <div class="view-viewport" id="viewport">
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Dashboard -->
+        <!-- ========================================= -->
+        <section id="view-dashboard" class="view-section active">
+          <div class="welcome-banner">
+            <div class="welcome-text">
+              <h1>Smart Utilities for Daily Tasks</h1>
+              <p>Privacy-first, superfast browser tools that work locally on your device without uploading files.</p>
+            </div>
+            <div class="welcome-gradient"></div>
+          </div>
+          
+          <div class="dashboard-filter-bar">
+            <h2>All Utilities</h2>
+            <div class="filter-pills">
+              <button class="filter-pill active" data-filter="all">All</button>
+              <button class="filter-pill" data-filter="images">Images</button>
+              <button class="filter-pill" data-filter="calculators">Calculators</button>
+              <button class="filter-pill" data-filter="converters">Converters</button>
+            </div>
+          </div>
+          
+          <div class="tools-grid" id="toolsGrid">
+            <!-- Dynamically populated via JavaScript -->
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: JPG to PDF -->
+        <!-- ========================================= -->
+        <section id="view-jpg-to-pdf" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper pdf"><i data-lucide="file-text"></i></div>
+              <div>
+                <h1>JPG to PDF Converter</h1>
+                <p>Convert multiple JPG, PNG, or WebP images into a single document.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-2">
+            <!-- Left Config Panel -->
+            <div class="control-panel glass">
+              <h3>PDF Settings</h3>
+              <div class="control-group">
+                <label for="pdfPageSize">Page Size</label>
+                <select id="pdfPageSize" class="input-field">
+                  <option value="a4" selected>A4 (210 x 297mm)</option>
+                  <option value="letter">US Letter (8.5 x 11 in)</option>
+                  <option value="fit">Fit Image Dimensions</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="pdfOrientation">Orientation</label>
+                <select id="pdfOrientation" class="input-field">
+                  <option value="portrait" selected>Portrait</option>
+                  <option value="landscape">Landscape</option>
+                </select>
+              </div>
+              <div class="control-group">
+                <label for="pdfMargin">Margin Size</label>
+                <select id="pdfMargin" class="input-field">
+                  <option value="0" selected>No Margin (0px)</option>
+                  <option value="10">Small (10px)</option>
+                  <option value="20">Medium (20px)</option>
+                </select>
+              </div>
+              
+              <div class="actions-group">
+                <button id="generatePdfBtn" class="action-btn primary disabled" disabled>
+                  <i data-lucide="file-down"></i> Download PDF
+                </button>
+                <button id="clearPdfBtn" class="action-btn secondary disabled" disabled>
+                  <i data-lucide="trash-2"></i> Clear All
+                </button>
+              </div>
+            </div>
+            
+            <!-- Right Dropzone Panel -->
+            <div class="main-panel glass">
+              <div class="drop-zone" id="pdfDropZone">
+                <i data-lucide="upload-cloud" class="drop-icon"></i>
+                <p class="drop-text-primary">Drag & drop your images here or click to browse</p>
+                <p class="drop-text-secondary">Supports JPG, PNG, and WebP. Your images remain in your browser.</p>
+                <input type="file" id="pdfFileInput" multiple accept="image/jpeg, image/png, image/webp" class="file-input-hidden">
+              </div>
+              
+              <div class="pdf-preview-container hidden" id="pdfPreviewContainer">
+                <div class="preview-header">
+                  <h4>Uploaded Images (<span id="pdfImageCount">0</span>)</h4>
+                  <p class="helper-text">You can rearrange the cards by using the arrows to define layout order.</p>
+                </div>
+                <div class="image-preview-grid" id="pdfPreviewGrid">
+                  <!-- Dynamically filled with image thumbnails -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Image Editor & Resizer -->
+        <!-- ========================================= -->
+        <section id="view-image-editor" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper img-editor"><i data-lucide="image"></i></div>
+              <div>
+                <h1>Image Editor & Resizer</h1>
+                <p>Resize, crop, rotate, and enhance your images with professional adjustments.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-editor">
+            <!-- Left Controls -->
+            <div class="control-panel glass editor-controls" id="editorControls" style="display:none;">
+              <!-- Resize Section -->
+              <div class="control-section">
+                <h4><i data-lucide="move"></i> Dimensions & Resize</h4>
+                <div class="input-row-2">
+                  <div class="control-group">
+                    <label for="editWidth">Width (px)</label>
+                    <input type="number" id="editWidth" class="input-field" min="1">
+                  </div>
+                  <div class="control-group">
+                    <label for="editHeight">Height (px)</label>
+                    <input type="number" id="editHeight" class="input-field" min="1">
+                  </div>
+                </div>
+                <div class="checkbox-group">
+                  <input type="checkbox" id="editLockRatio" checked>
+                  <label for="editLockRatio">Maintain Aspect Ratio</label>
+                </div>
+                <div class="actions-group-row">
+                  <button id="applyResizeBtn" class="action-btn primary sm">Apply Resize</button>
+                </div>
+              </div>
+              
+              <!-- Filters Section -->
+              <div class="control-section">
+                <h4><i data-lucide="sliders"></i> Image Adjustments</h4>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Brightness</span><span id="valBrightness">100%</span></div>
+                  <input type="range" id="sliderBrightness" min="0" max="200" value="100">
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Contrast</span><span id="valContrast">100%</span></div>
+                  <input type="range" id="sliderContrast" min="0" max="200" value="100">
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Saturation</span><span id="valSaturation">100%</span></div>
+                  <input type="range" id="sliderSaturation" min="0" max="200" value="100">
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Blur</span><span id="valBlur">0px</span></div>
+                  <input type="range" id="sliderBlur" min="0" max="20" value="0">
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Grayscale</span><span id="valGrayscale">0%</span></div>
+                  <input type="range" id="sliderGrayscale" min="0" max="100" value="0">
+                </div>
+              </div>
+              
+              <!-- Transforms Section -->
+              <div class="control-section">
+                <h4><i data-lucide="rotate-cw"></i> Rotate & Crop</h4>
+                <div class="actions-group-row">
+                  <button id="rotateLeftBtn" class="action-btn secondary sm" title="Rotate Left 90°"><i data-lucide="rotate-ccw"></i></button>
+                  <button id="rotateRightBtn" class="action-btn secondary sm" title="Rotate Right 90°"><i data-lucide="rotate-cw"></i></button>
+                  <button id="flipHBtn" class="action-btn secondary sm" title="Flip Horizontal"><i data-lucide="flip-horizontal"></i></button>
+                  <button id="flipVBtn" class="action-btn secondary sm" title="Flip Vertical"><i data-lucide="flip-vertical"></i></button>
+                </div>
+                
+                <div class="crop-trigger-wrap" style="margin-top: 15px;">
+                  <button id="toggleCropBtn" class="action-btn secondary flex-center"><i data-lucide="crop"></i> Crop Tool</button>
+                  <div id="cropRatioSelection" class="hidden" style="margin-top:10px;">
+                    <label for="cropRatioSelect">Crop Ratio</label>
+                    <select id="cropRatioSelect" class="input-field select-sm">
+                      <option value="free">Free Form</option>
+                      <option value="1:1">1:1 Square</option>
+                      <option value="16:9">16:9 Landscape</option>
+                      <option value="4:3">4:3 Standard</option>
+                    </select>
+                    <button id="performCropBtn" class="action-btn primary sm" style="margin-top:8px; width:100%;">Crop Selection</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Export Options -->
+              <div class="actions-group" style="margin-top: auto; padding-top: 20px;">
+                <button id="downloadEditedBtn" class="action-btn primary"><i data-lucide="download"></i> Save & Download</button>
+                <button id="resetEditorBtn" class="action-btn secondary"><i data-lucide="rotate-ccw"></i> Reset All</button>
+              </div>
+            </div>
+            
+            <!-- Editor Workspace -->
+            <div class="main-panel glass editor-canvas-container flex-center">
+              <!-- Upload Dropzone (Visible initially) -->
+              <div class="drop-zone" id="editorDropZone">
+                <i data-lucide="image-plus" class="drop-icon"></i>
+                <p class="drop-text-primary">Drag & drop your image here or click to browse</p>
+                <p class="drop-text-secondary">Supports PNG, JPG, WebP, GIF. All processing happens offline.</p>
+                <input type="file" id="editorFileInput" accept="image/*" class="file-input-hidden">
+              </div>
+              
+              <!-- Canvas Workspace (Hidden initially) -->
+              <div class="canvas-workspace hidden" id="canvasWorkspace">
+                <div class="canvas-wrapper">
+                  <canvas id="editorCanvas"></canvas>
+                  <!-- Overlay for Crop Handles -->
+                  <div id="cropOverlay" class="crop-overlay hidden">
+                    <div class="crop-box" id="cropBox">
+                      <div class="crop-corner top-left"></div>
+                      <div class="crop-corner top-right"></div>
+                      <div class="crop-corner bottom-left"></div>
+                      <div class="crop-corner bottom-right"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="image-meta-info" id="imageMetaInfo">
+                  Original: 1920x1080 | Active: 1920x1080
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Compress & Convert -->
+        <!-- ========================================= -->
+        <section id="view-image-compressor" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper compress"><i data-lucide="maximize-2"></i></div>
+              <div>
+                <h1>Image Format Converter & Compressor</h1>
+                <p>Convert and shrink image file sizes without sacrificing visible quality.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-2">
+            <!-- Left Config -->
+            <div class="control-panel glass">
+              <h3>Compression Options</h3>
+              <div class="control-group">
+                <label for="compressFormat">Output Format</label>
+                <select id="compressFormat" class="input-field">
+                  <option value="image/jpeg">JPEG (.jpg)</option>
+                  <option value="image/png">PNG (.png)</option>
+                  <option value="image/webp" selected>WebP (.webp)</option>
+                </select>
+              </div>
+              
+              <div class="control-group" id="qualitySliderGroup">
+                <div class="slider-label">
+                  <label for="compressQuality">Compression Quality</label>
+                  <span id="compressQualityVal">75%</span>
+                </div>
+                <input type="range" id="compressQuality" min="10" max="100" value="75">
+                <span class="helper-text">Lower quality reduces file size drastically; high values maintain sharpness.</span>
+              </div>
+              
+              <div class="actions-group">
+                <button id="downloadCompressedBtn" class="action-btn primary disabled" disabled>
+                  <i data-lucide="download"></i> Download Compressed Image
+                </button>
+                <button id="clearCompressorBtn" class="action-btn secondary disabled" disabled>
+                  <i data-lucide="trash-2"></i> Clear File
+                </button>
+              </div>
+            </div>
+            
+            <!-- Right Dropzone & Real-time Stats -->
+            <div class="main-panel glass">
+              <div class="drop-zone" id="compressorDropZone">
+                <i data-lucide="shrink" class="drop-icon"></i>
+                <p class="drop-text-primary">Drag & drop your image or click to browse</p>
+                <p class="drop-text-secondary">Processes files securely directly on your processor.</p>
+                <input type="file" id="compressorFileInput" accept="image/*" class="file-input-hidden">
+              </div>
+              
+              <div class="compress-stats-container hidden" id="compressStatsContainer">
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <span class="stat-label">Original Size</span>
+                    <span class="stat-value" id="compOrigSize">0 KB</span>
+                  </div>
+                  <div class="stat-icon-arrow"><i data-lucide="arrow-right-left"></i></div>
+                  <div class="stat-card accent">
+                    <span class="stat-label">Estimated Size</span>
+                    <span class="stat-value" id="compNewSize">0 KB</span>
+                  </div>
+                  <div class="stat-saving-badge" id="compSavingPercent">Saved 0%</div>
+                </div>
+                
+                <div class="dual-preview">
+                  <div class="preview-box">
+                    <h5>Before</h5>
+                    <div class="img-wrap"><img id="compPrevBefore" src=""></div>
+                  </div>
+                  <div class="preview-box">
+                    <h5>After</h5>
+                    <div class="img-wrap"><img id="compPrevAfter" src=""></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Scientific Calculator -->
+        <!-- ========================================= -->
+        <section id="view-scientific-calculator" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper math"><i data-lucide="calculator"></i></div>
+              <div>
+                <h1>Scientific Calculator</h1>
+                <p>High-precision calculation engine supporting scientific formulas, history, and constants.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-calc">
+            <!-- Calculator Core -->
+            <div class="calculator-outer-box glass">
+              <!-- Result Screen -->
+              <div class="calc-screen">
+                <div class="calc-formula" id="calcFormula"></div>
+                <div class="calc-display" id="calcDisplay">0</div>
+              </div>
+              
+              <!-- Mode Toggles -->
+              <div class="calc-mode-bar">
+                <span class="calc-badge" id="calcAngleMode">DEG</span>
+                <span class="calc-badge hidden" id="calcShiftMode">SHIFT</span>
+              </div>
+              
+              <!-- Layout Keyboard -->
+              <div class="calc-keyboard">
+                <!-- Row 1 -->
+                <button class="btn-calc fn" data-cmd="angle">Rad/Deg</button>
+                <button class="btn-calc fn" data-cmd="shift">Shift</button>
+                <button class="btn-calc fn" data-cmd="const-pi">π</button>
+                <button class="btn-calc fn" data-cmd="const-e">e</button>
+                <button class="btn-calc clear" data-cmd="clear">C</button>
+                <button class="btn-calc clear" data-cmd="backspace">⌫</button>
+                
+                <!-- Row 2 -->
+                <button class="btn-calc fn" data-cmd="sin">sin</button>
+                <button class="btn-calc fn" data-cmd="cos">cos</button>
+                <button class="btn-calc fn" data-cmd="tan">tan</button>
+                <button class="btn-calc fn" data-cmd="pow">xʸ</button>
+                <button class="btn-calc fn" data-cmd="sqrt">√</button>
+                <button class="btn-calc op" data-cmd="divide">÷</button>
+                
+                <!-- Row 3 -->
+                <button class="btn-calc fn" data-cmd="ln">ln</button>
+                <button class="btn-calc fn" data-cmd="log">log</button>
+                <button class="btn-calc fn" data-cmd="fact">x!</button>
+                <button class="btn-calc num" data-val="7">7</button>
+                <button class="btn-calc num" data-val="8">8</button>
+                <button class="btn-calc num" data-val="9">9</button>
+                
+                <!-- Row 4 -->
+                <button class="btn-calc fn" data-cmd="inv">1/x</button>
+                <button class="btn-calc fn" data-cmd="open-paren">(</button>
+                <button class="btn-calc fn" data-cmd="close-paren">)</button>
+                <button class="btn-calc num" data-val="4">4</button>
+                <button class="btn-calc num" data-val="5">5</button>
+                <button class="btn-calc num" data-val="6">6</button>
+                
+                <!-- Row 5 (Shift options) -->
+                <button class="btn-calc fn" data-cmd="sin-inv">sin⁻¹</button>
+                <button class="btn-calc fn" data-cmd="cos-inv">cos⁻¹</button>
+                <button class="btn-calc fn" data-cmd="tan-inv">tan⁻¹</button>
+                <button class="btn-calc num" data-val="1">1</button>
+                <button class="btn-calc num" data-val="2">2</button>
+                <button class="btn-calc num" data-val="3">3</button>
+                
+                <!-- Row 6 -->
+                <button class="btn-calc fn" data-cmd="exp">EXP</button>
+                <button class="btn-calc op" data-cmd="multiply">×</button>
+                <button class="btn-calc op" data-cmd="subtract">-</button>
+                <button class="btn-calc op" data-cmd="add">+</button>
+                <button class="btn-calc num" data-val="0">0</button>
+                <button class="btn-calc num" data-val=".">.</button>
+                
+                <!-- Large Equal -->
+                <button class="btn-calc equal" id="calcEqualsBtn">=</button>
+              </div>
+            </div>
+            
+            <!-- Calculator History panel -->
+            <div class="control-panel glass calc-history">
+              <h3>Calculation History</h3>
+              <div class="history-list" id="calcHistoryList">
+                <div class="no-history">No history yet</div>
+              </div>
+              <button class="action-btn secondary sm" id="clearCalcHistoryBtn" style="margin-top:auto;"><i data-lucide="trash-2"></i> Clear History</button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Percentage Calculator -->
+        <!-- ========================================= -->
+        <section id="view-percentage-calculator" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper math"><i data-lucide="percent"></i></div>
+              <div>
+                <h1>Percentage Calculator</h1>
+                <p>Instantly perform direct ratios, markup rates, margins, and growth statistics.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-2">
+            <!-- Left forms column -->
+            <div class="control-panel glass flex-column-gap">
+              <h3>Direct Calculations</h3>
+              
+              <!-- Form 1: X% of Y -->
+              <div class="calculator-row-item">
+                <div class="calc-formula-desc">Calculate what is X% of Y</div>
+                <div class="input-row-inline">
+                  <span>What is</span>
+                  <input type="number" id="pctP1" class="input-field inline-input" placeholder="X">
+                  <span>% of</span>
+                  <input type="number" id="pctW1" class="input-field inline-input" placeholder="Y">
+                  <span>?</span>
+                </div>
+                <div class="calc-result-block">Answer: <strong id="pctAns1">-</strong></div>
+              </div>
+              
+              <hr class="divider">
+              
+              <!-- Form 2: X is what % of Y -->
+              <div class="calculator-row-item">
+                <div class="calc-formula-desc">Calculate X is what % of Y</div>
+                <div class="input-row-inline">
+                  <input type="number" id="pctP2" class="input-field inline-input" placeholder="X">
+                  <span>is what % of</span>
+                  <input type="number" id="pctW2" class="input-field inline-input" placeholder="Y">
+                  <span>?</span>
+                </div>
+                <div class="calc-result-block">Answer: <strong id="pctAns2">-</strong></div>
+              </div>
+            </div>
+            
+            <!-- Right forms column -->
+            <div class="main-panel glass flex-column-gap">
+              <h3>Increase / Decrease Ratios</h3>
+              
+              <!-- Form 3: Increase/Decrease from X to Y -->
+              <div class="calculator-row-item">
+                <div class="calc-formula-desc">Percentage Increase/Decrease from X to Y</div>
+                <div class="input-row-inline">
+                  <span>From</span>
+                  <input type="number" id="pctP3" class="input-field inline-input" placeholder="X">
+                  <span>to</span>
+                  <input type="number" id="pctW3" class="input-field inline-input" placeholder="Y">
+                  <span>?</span>
+                </div>
+                <div class="calc-result-block">Answer: <strong id="pctAns3">-</strong></div>
+              </div>
+              
+              <hr class="divider">
+              
+              <!-- Form 4: Add/Sub percent to quantity -->
+              <div class="calculator-row-item">
+                <div class="calc-formula-desc">Add or subtract percentage value from quantity</div>
+                <div class="input-row-inline">
+                  <select id="pctOp4" class="input-field inline-select">
+                    <option value="add">Add</option>
+                    <option value="sub">Subtract</option>
+                  </select>
+                  <input type="number" id="pctP4" class="input-field inline-input" placeholder="X%">
+                  <span>to/from</span>
+                  <input type="number" id="pctW4" class="input-field inline-input" placeholder="Y">
+                </div>
+                <div class="calc-result-block">Answer: <strong id="pctAns4">-</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: EMI Calculator -->
+        <!-- ========================================= -->
+        <section id="view-emi-calculator" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper math"><i data-lucide="landmark"></i></div>
+              <div>
+                <h1>Equated Monthly Installment (EMI) Calculator</h1>
+                <p>Plan mortgages, car loans, or personal debts with interest breakdowns and charts.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-2">
+            <!-- Left Input Controls -->
+            <div class="control-panel glass">
+              <h3>Loan Details</h3>
+              <div class="control-group">
+                <label for="emiAmount">Loan Amount ($ / ₹ / €)</label>
+                <input type="number" id="emiAmount" class="input-field" value="100000" step="5000" min="1000">
+              </div>
+              
+              <div class="control-group">
+                <label for="emiRate">Interest Rate (% per annum)</label>
+                <input type="number" id="emiRate" class="input-field" value="8.5" step="0.1" min="0.1">
+              </div>
+              
+              <div class="input-row-2">
+                <div class="control-group">
+                  <label for="emiTenure">Tenure</label>
+                  <input type="number" id="emiTenure" class="input-field" value="5" min="1">
+                </div>
+                <div class="control-group">
+                  <label for="emiTenureUnit">Unit</label>
+                  <select id="emiTenureUnit" class="input-field">
+                    <option value="years" selected>Years</option>
+                    <option value="months">Months</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="emi-summary-box">
+                <div class="summary-line">
+                  <span>Monthly EMI:</span>
+                  <strong class="total-big" id="emiValMonthly">$0.00</strong>
+                </div>
+                <div class="summary-line text-sm">
+                  <span>Total Principal:</span>
+                  <span id="emiValPrincipal">$0.00</span>
+                </div>
+                <div class="summary-line text-sm">
+                  <span>Total Interest Payable:</span>
+                  <span id="emiValInterest">$0.00</span>
+                </div>
+                <div class="summary-line text-sm border-top">
+                  <span>Total Amount Paid:</span>
+                  <span id="emiValTotal">$0.00</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Output Analytics -->
+            <div class="main-panel glass flex-center flex-col">
+              <h3>Breakdown Visualization</h3>
+              <div class="chart-container" style="position: relative; height:250px; width:250px; margin-top:20px;">
+                <canvas id="emiChart"></canvas>
+              </div>
+              <div class="chart-legend" style="margin-top: 15px; text-align: center;">
+                <span class="legend-badge principal"><i class="dot"></i> Principal Amount</span>
+                <span class="legend-badge interest" style="margin-left: 15px;"><i class="dot"></i> Total Interest</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: GST Calculator -->
+        <!-- ========================================= -->
+        <section id="view-gst-calculator" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper math"><i data-lucide="coins"></i></div>
+              <div>
+                <h1>GST / VAT Tax Calculator</h1>
+                <p>Compute Goods and Services Tax / VAT addition and subtraction with global presets.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-2">
+            <!-- Left Input -->
+            <div class="control-panel glass">
+              <h3>Tax Details</h3>
+              <div class="control-group">
+                <label for="gstAmount">Base Amount ($ / ₹ / etc)</label>
+                <input type="number" id="gstAmount" class="input-field" value="1000" min="1">
+              </div>
+              
+              <div class="control-group">
+                <label for="gstCountry">Country Rate Presets</label>
+                <select id="gstCountry" class="input-field">
+                  <option value="custom" selected>Custom Tax Rate</option>
+                  <option value="in-18">India GST Standard (18%)</option>
+                  <option value="in-28">India GST Luxury (28%)</option>
+                  <option value="uk-20">United Kingdom VAT (20%)</option>
+                  <option value="de-19">Germany VAT Standard (19%)</option>
+                  <option value="au-10">Australia GST (10%)</option>
+                  <option value="sg-9">Singapore GST (9%)</option>
+                  <option value="nz-15">New Zealand GST (15%)</option>
+                </select>
+              </div>
+              
+              <div class="control-group">
+                <label for="gstRate">Tax Rate (%)</label>
+                <input type="number" id="gstRate" class="input-field" value="18" min="0" max="100" step="0.1">
+              </div>
+            </div>
+            
+            <!-- Right Output Tables -->
+            <div class="main-panel glass">
+              <h3>Tax Computation Breakdown</h3>
+              
+              <div class="tax-computation-grid">
+                <!-- Add Tax Card -->
+                <div class="tax-card plus">
+                  <div class="tax-card-title">Add Tax (+ GST/VAT)</div>
+                  <div class="tax-row">
+                    <span>Net Amount (Before Tax):</span>
+                    <strong id="gstAddNet">$0.00</strong>
+                  </div>
+                  <div class="tax-row">
+                    <span>Tax Amount:</span>
+                    <span id="gstAddTax">$0.00</span>
+                  </div>
+                  <div class="tax-row total">
+                    <span>Gross Amount (Total):</span>
+                    <strong id="gstAddGross">$0.00</strong>
+                  </div>
+                </div>
+                
+                <!-- Remove Tax Card -->
+                <div class="tax-card minus">
+                  <div class="tax-card-title">Remove Tax (- GST/VAT)</div>
+                  <div class="tax-row">
+                    <span>Gross Amount (Total):</span>
+                    <strong id="gstSubGross">$0.00</strong>
+                  </div>
+                  <div class="tax-row">
+                    <span>Tax Amount:</span>
+                    <span id="gstSubTax">$0.00</span>
+                  </div>
+                  <div class="tax-row total">
+                    <span>Net Amount (Before Tax):</span>
+                    <strong id="gstSubNet">$0.00</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: Unit Converter -->
+        <!-- ========================================= -->
+        <section id="view-unit-converter" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper converter"><i data-lucide="arrow-left-right"></i></div>
+              <div>
+                <h1>Unit & Temperature Converter</h1>
+                <p>Convert metrics in real-time between Length, Weight, Area, Volume, and Temperature dimensions.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-converter">
+            <!-- Left Mode Selector -->
+            <div class="control-panel glass list-modes">
+              <h3>Dimensions</h3>
+              <div class="dimension-pills" id="converterDimensionTabs">
+                <button class="dim-pill active" data-dim="length">
+                  <i data-lucide="ruler"></i> Length
+                </button>
+                <button class="dim-pill" data-dim="weight">
+                  <i data-lucide="weight"></i> Weight & Mass
+                </button>
+                <button class="dim-pill" data-dim="area">
+                  <i data-lucide="grid"></i> Area
+                </button>
+                <button class="dim-pill" data-dim="volume">
+                  <i data-lucide="droplet"></i> Volume
+                </button>
+                <button class="dim-pill" data-dim="temperature">
+                  <i data-lucide="thermometer"></i> Temperature
+                </button>
+              </div>
+            </div>
+            
+            <!-- Right Dynamic Convert Fields -->
+            <div class="main-panel glass">
+              <h3 id="converterActiveTitle">Length Converter</h3>
+              <p class="helper-text" style="margin-bottom: 20px;">Type a value into any box to instantly convert all other units.</p>
+              
+              <div class="converter-inputs-grid" id="converterGrid">
+                <!-- Dynamically created input boxes go here -->
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- ========================================= -->
+        <!-- VIEW: 8085 Microprocessor Simulator -->
+        <!-- ========================================= -->
+        <section id="view-8085-simulator" class="view-section">
+          <div class="tool-header">
+            <div class="tool-title-info">
+              <div class="tool-icon-wrapper converter"><i data-lucide="cpu"></i></div>
+              <div>
+                <h1>8085 Microprocessor Simulator & Lab</h1>
+                <p>Write assembly code, compile to opcodes, trace execution, and inspect memory grids.</p>
+              </div>
+            </div>
+            <button class="back-to-dashboard-btn"><i data-lucide="arrow-left"></i> Dashboard</button>
+          </div>
+          
+          <div class="tool-content-layout grid-8085">
+            <!-- Left Editor Panel -->
+            <div class="control-panel glass editor-8085-panel">
+              <div class="editor-header-8085">
+                <label for="assemblyTemplates">Program Template</label>
+                <select id="assemblyTemplates" class="input-field select-sm">
+                  <option value="" selected>-- Select Lab Program --</option>
+                  <option value="addition">8-Bit Addition</option>
+                  <option value="subtraction">8-Bit Subtraction</option>
+                  <option value="block-transfer">Block Data Transfer (10 Bytes)</option>
+                  <option value="find-max">Find Maximum Element</option>
+                  <option value="multiplication">8-Bit Multiplication</option>
+                  <option value="fibonacci">Fibonacci Series</option>
+                </select>
+              </div>
+              
+              <div class="editor-wrapper-8085">
+                <div class="line-numbers-8085" id="editorLineNumbers">1</div>
+                <textarea id="assemblyEditor" class="assembly-textarea" spellcheck="false" placeholder="; Write 8085 Assembly here&#10;MVI A, 05H&#10;ADI 0AH&#10;STA 3000H&#10;HLT"></textarea>
+              </div>
+              
+              <div class="controls-row-8085">
+                <button id="assembleBtn" class="action-btn primary sm"><i data-lucide="wrench"></i> Assemble & Load</button>
+                <button id="runCpuBtn" class="action-btn secondary sm disabled" disabled><i data-lucide="play"></i> Run</button>
+                <button id="stepCpuBtn" class="action-btn secondary sm disabled" disabled><i data-lucide="arrow-right"></i> Step</button>
+                <button id="resetCpuBtn" class="action-btn secondary sm"><i data-lucide="rotate-ccw"></i> Reset</button>
+              </div>
+
+              <div class="console-wrapper-8085">
+                <div class="console-title">Console Output Logs</div>
+                <div class="console-log-area" id="consoleLog">
+                  Simulator initialized. Ready to compile assembly.
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Debug Panels (Registers & Memory) -->
+            <div class="main-panel glass panel-8085-debug">
+              <div class="tabs-8085-debug">
+                <button class="debug-tab active" data-tab="registers">Registers & Flags</button>
+                <button class="debug-tab" data-tab="memory">RAM Memory Viewer</button>
+              </div>
+              
+              <!-- Tab 1: Registers & Flags -->
+              <div class="debug-tab-content active" id="tab-registers">
+                <div class="registers-grid-8085">
+                  <div class="reg-card">
+                    <span class="reg-label">Accumulator (A)</span>
+                    <strong class="reg-value" id="reg-val-a">00H</strong>
+                    <span class="reg-binary" id="reg-bin-a">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">B Register</span>
+                    <strong class="reg-value" id="reg-val-b">00H</strong>
+                    <span class="reg-binary" id="reg-bin-b">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">C Register</span>
+                    <strong class="reg-value" id="reg-val-c">00H</strong>
+                    <span class="reg-binary" id="reg-bin-c">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">D Register</span>
+                    <strong class="reg-value" id="reg-val-d">00H</strong>
+                    <span class="reg-binary" id="reg-bin-d">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">E Register</span>
+                    <strong class="reg-value" id="reg-val-e">00H</strong>
+                    <span class="reg-binary" id="reg-bin-e">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">H Register</span>
+                    <strong class="reg-value" id="reg-val-h">00H</strong>
+                    <span class="reg-binary" id="reg-bin-h">00000000</span>
+                  </div>
+                  <div class="reg-card">
+                    <span class="reg-label">L Register</span>
+                    <strong class="reg-value" id="reg-val-l">00H</strong>
+                    <span class="reg-binary" id="reg-bin-l">00000000</span>
+                  </div>
+                  <div class="reg-card highlight">
+                    <span class="reg-label">Memory Pointer (M)</span>
+                    <strong class="reg-value" id="reg-val-m">00H</strong>
+                    <span class="reg-binary" id="reg-bin-m">Address: 0000H</span>
+                  </div>
+                </div>
+
+                <div class="program-pointers-8085">
+                  <div class="pointer-item">
+                    <span>Program Counter (PC):</span>
+                    <strong id="reg-val-pc">2000H</strong>
+                  </div>
+                  <div class="pointer-item">
+                    <span>Stack Pointer (SP):</span>
+                    <strong id="reg-val-sp">FFFFH</strong>
+                  </div>
+                </div>
+
+                <div class="flags-title-8085">Flags Register (F)</div>
+                <div class="flags-row-8085">
+                  <div class="flag-bit" id="flag-s">
+                    <span class="flag-light">0</span>
+                    <span class="flag-name">S (Sign)</span>
+                  </div>
+                  <div class="flag-bit" id="flag-z">
+                    <span class="flag-light">0</span>
+                    <span class="flag-name">Z (Zero)</span>
+                  </div>
+                  <div class="flag-bit" id="flag-ac">
+                    <span class="flag-light">0</span>
+                    <span class="flag-name">AC (Aux Carry)</span>
+                  </div>
+                  <div class="flag-bit" id="flag-p">
+                    <span class="flag-light">0</span>
+                    <span class="flag-name">P (Parity)</span>
+                  </div>
+                  <div class="flag-bit" id="flag-cy">
+                    <span class="flag-light">0</span>
+                    <span class="flag-name">CY (Carry)</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Tab 2: Memory Viewer -->
+              <div class="debug-tab-content" id="tab-memory">
+                <div class="memory-search-bar-8085">
+                  <div class="control-group search-group">
+                    <label for="memLoadAddr">Page Load Address (Hex)</label>
+                    <input type="text" id="memLoadAddr" class="input-field select-sm" value="2000" maxlength="4">
+                  </div>
+                  <div class="control-group search-group">
+                    <label for="memSearchAddr">Go To Address (Hex)</label>
+                    <input type="text" id="memSearchAddr" class="input-field select-sm" placeholder="e.g. 3000" maxlength="4">
+                  </div>
+                  <button id="memUpdateBtn" class="action-btn secondary sm"><i data-lucide="refresh-cw"></i> Refresh</button>
+                </div>
+                
+                <div class="memory-table-wrapper-8085">
+                  <table class="memory-table-8085">
+                    <thead>
+                      <tr>
+                        <th>Address</th>
+                        <th>Value (Hex)</th>
+                        <th>Value (Dec)</th>
+                        <th>Instruction Opcode / Assembly Details</th>
+                      </tr>
+                    </thead>
+                    <tbody id="memoryTableBody">
+                      <!-- Dynamically rendered rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      </div>
+    </main>
+  </div>
+  
+  <!-- Global System Notification Toast -->
+  <div id="toastNotification" class="toast hidden">
+    <i data-lucide="info" class="toast-icon"></i>
+    <span class="toast-message" id="toastMessage">Done!</span>
+  </div>
+  
+  <!-- App JS Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/image-tools.js"></script>
+  <script src="js/math-tools.js"></script>
+  <script src="js/unit-tools.js"></script>
+  <script src="js/8085-emulator.js"></script>
+</body>
+</html>
